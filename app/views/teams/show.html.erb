@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Playing History for <%= @team.users.first.first_name %>  &  <%= @team.users.last.try(:first_name) %> </h2>
+  <p>Matches Played: <%= @team.matches_played %></p>
+  <p>Matches Won: <%= @team.try(:wins) %></p>
+  <p>Matches Lost: <%=  @team.matches_lost %></p>
+  <p>Win Percentage: <%= @team.team_win_percentage %>%</p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Matchup</th>
+        <th>Score</th>
+        <th>Winner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @team.matches.each_with_index do |match, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td>
+          <%= link_to "Team #1", team_path(match.teams.first) %>
+          <%= match.team_one_player_one %> &
+          <% if match.team_one_player_two %>
+            <%= match.team_one_player_two %>
+          <% end %>
+          vs.
+          <%= link_to "Team #2", team_path(match.teams.last) %>
+          <%= match.team_two_player_one %> &
+          <% if match.team_two_player_two%>
+            <%= match.team_two_player_two %>
+          <% end %>
+          </td>
+          <td><%= match.team_one_score %> : <%= match.team_two_score %></td>
+          <td><%= match.match_winner %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
