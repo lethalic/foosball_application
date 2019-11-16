@@ -9,8 +9,8 @@ class MatchesController < ApplicationController
 
     def create
       @match = Match.new(match_params)
-      @match.teams << Teamm.find(params[:match][:team_one])
-      @match.teams << Teamm.find(params[:match][:team_two])
+      @match.teams << Team.find(params[:match][:team_one])
+      @match.teams << Team.find(params[:match][:team_two])
       @match.winner?
       @match.assign_winner
       @match.team_wins
